@@ -1,4 +1,3 @@
-
 #' Appends data from a dataframe into an existing database table with the same structure
 #'
 #' @param conn_pool a database connection of class 'pool'
@@ -8,6 +7,7 @@
 #'  (i.e. if you have a huge dataframe with 100 columns and 100,000 rows, a
 #'  chunk_size of 10,000 elements would split the dataframe into 1000 groups and
 #'  appends each successively.)
+#' @param schema the name of the schema that contains the table to which the data is to be appended
 #'
 #' @return NULL
 #' @export
@@ -22,7 +22,7 @@
 #' pool::poolClose(con)
 #' }
 #'
-cdr_append_tbl <- function(conn_pool, db_tbl, db_tbl_name = NULL, chunk_size = 10000){
+cdr_append_tbl <- function(conn_pool, db_tbl, db_tbl_name = NULL, chunk_size = 10000, schema = "public"){
 
   # if no 'db_tbl_name' supplied, name the table the same name as 'db_tbl'
   if( is.null(db_tbl_name) ){ db_tbl_name <- rlang::as_name(rlang::enquo(db_tbl)) }
@@ -40,17 +40,17 @@ cdr_append_tbl <- function(conn_pool, db_tbl, db_tbl_name = NULL, chunk_size = 1
 
 
   # convert to ANSI std and append tables
-  cat(glue::glue("\nAppending data to table '{db_tbl_name}' with truncated query below.\n\n"))
+  cat(glue::glue("\nAppending data to table '{schema}.{db_tbl_name}' with truncated query below.\n\n"))
   sql_queries <- chopped_db_tbl %>%
     purrr::map(., ~dplyr::mutate(., dplyr::across(tidyselect::where(rlang::is_logical), as.character))) %>%
     purrr::map(., ~dplyr::mutate(., dplyr::across(tidyselect::where(lubridate::is.POSIXct),~paste(lubridate::with_tz(.,cdr_adj_timezone(conn_pool)))))) %>%
-    purrr::map(., ~pool::sqlAppendTable(DBI::ANSI(), db_tbl_name, .)) %>%
+    purrr::map(., ~pool::sqlAppendTable(DBI::ANSI(), table=DBI::Id(schema=schema, table=db_tbl_name), values = .)) %>%
     suppressWarnings()
   cat(paste(stringr::str_extract(sql_queries, '(?:)(.*\\n){5}'),'... etc... \n\n'))
 
   purrr::map2(.x = sql_queries, .y = row_counts,
              ~ pool::dbExecute(conn = conn_pool, statement = .x) %>%
-               cat(glue::glue("\nAppended {.y} rows to table '{db_tbl_name}'\n"))
+               cat(glue::glue("\nAppended {.y} rows to table '{schema}.{db_tbl_name}'\n"))
              )
 
   cat('\n\n')
