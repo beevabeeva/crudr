@@ -7,7 +7,7 @@
 #' presented in the UI)
 #'
 #' @param db_tbl_name primary table name - namespace ID corresponding to the
-#'   'primary_tbl_name' in the database
+#' @param schema schema containing primary table
 #' @param key_col name of the unique ID column in the db table (table must have
 #'   a unique ID column with unique IDs)
 #' @param conn_pool db connection from package 'pool'
@@ -34,7 +34,8 @@
 #' shiny::shinyApp(ui,server)
 #'}
 
-cdr_manage_db_tbls <- function(db_tbl_name, key_col, conn_pool, session,
+cdr_manage_db_tbls <- function(db_tbl_name, schema= "public",
+                               key_col, conn_pool, session,
                                add_row_permission   = F,
                                del_row_permission   = F,
                                cell_edit_permission = F,
@@ -58,7 +59,7 @@ cdr_manage_db_tbls <- function(db_tbl_name, key_col, conn_pool, session,
 
 
     cat('\n  S1 - Create the UI above the primary table based on add row and delete row permissions\n')
-    output$key_editor_ui <- shiny::renderUI({ crudr::cdr_row_editor_html('',db_tbl_name, add_row_permission, del_row_permission) })
+    output$key_editor_ui <- shiny::renderUI({ crudr::cdr_row_editor_html('',db_tbl_name, schema, add_row_permission, del_row_permission) })
     cat('\n  S1 - Primary table: collect, sync, and present')
     output$db_tbl <- cdr_impart_primary_tbl(conn_pool,db_tbl_name, key_col, cell_edit_permission, lock_fields)
     cat('\n  S1 - Deltas table: collect, sync, and present')
