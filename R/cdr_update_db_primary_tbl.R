@@ -3,6 +3,7 @@
 #'
 #' @param conn_pool pool connection object: the pool of connections established by the session
 #' @param db_tbl_name string: name of the specific table the value to update is located in
+#' @param schema string: name of schema containing db_tbl_name
 #' @param update_value number or string: the value to update already in the correct data type
 #' @param value_colname string: the specific column name where the value to update is located
 #' @param value_rowuid number or string: the specific row unique ID that corresponds to the row
@@ -15,6 +16,7 @@
 
 cdr_update_db_primary_tbl <- function(conn_pool  = conn_pool,
                                       db_tbl_name   = NULL,
+                                      schema        = NULL,
                                       update_value  = NULL,
                                       value_colname = NULL,
                                       value_rowuid  = NULL,
@@ -34,7 +36,7 @@ cdr_update_db_primary_tbl <- function(conn_pool  = conn_pool,
   sql_stmt <- pool::sqlInterpolate(
     conn = conn_pool,
     sql  = glue::glue('
-    UPDATE "{db_tbl_name}"
+    UPDATE "{schema}.{db_tbl_name}"
     SET "{value_colname}" = ?update_value
     WHERE "{key_column}" = ?value_rowuid '
     ),
@@ -50,7 +52,7 @@ cdr_update_db_primary_tbl <- function(conn_pool  = conn_pool,
   if(success){
     cat(
       paste0("\nOverwrote row '",value_rowuid,"' field '",value_colname,"' with '",
-             update_value,"' in '",db_tbl_name,"' database\n")
+             update_value,"' in '",schema"."db_tbl_name,"' database\n")
     )
   } else {
     message(glue::glue("Unable to overwrite values in the DB primary table. "))
