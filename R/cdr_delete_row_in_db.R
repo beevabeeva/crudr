@@ -5,6 +5,7 @@
 #'
 #' @param conn_pool pool connection object: the pool of connections established by the session
 #' @param db_tbl_name string: name of the specific table the value to update is located in
+#' @param schema string: name of the schema containing the table
 #' @param value_rowuid number or string: the specific the unique ID that corresponds to the row to delete
 #' @param key_column string: the name of the column with the unique ID
 #'
@@ -29,6 +30,7 @@
 
 cdr_delete_row_in_db <- function(conn_pool = conn_pool,
                                   db_tbl_name  = NULL,
+                                  schema       = "public",
                                   value_rowuid = NULL,
                                   key_column   = NULL){
   cat('\n--Running: crudr::cdr_delete_row_in_db()\n')
@@ -37,7 +39,7 @@ cdr_delete_row_in_db <- function(conn_pool = conn_pool,
   sql_stmt <- pool::sqlInterpolate(
     conn = conn_pool,
     sql  = glue::glue('
-    DELETE FROM "{db_tbl_name}"
+    DELETE FROM "{schema}.{db_tbl_name}"
     WHERE "{key_column}" = ?value_rowuid '),
     .dots = list(
       value_rowuid = value_rowuid
@@ -47,9 +49,9 @@ cdr_delete_row_in_db <- function(conn_pool = conn_pool,
   success <- pool::dbExecute(conn_pool, sql_stmt)
 
   if(success){
-    cat(glue::glue("\n\nDeleted observations identified by '{value_rowuid}' from '{db_tbl_name}'\n\n"))
+    cat(glue::glue("\n\nDeleted observations identified by '{value_rowuid}' from '{schema}.{db_tbl_name}'\n\n"))
   } else {
-    message(glue::glue("Unable to delete observations identified by '{value_rowuid}' from '{db_tbl_name}'. "))
+    message(glue::glue("Unable to delete observations identified by '{value_rowuid}' from '{schema}.{db_tbl_name}'. "))
   }
 
 
