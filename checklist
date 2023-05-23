@@ -8,7 +8,7 @@ cdr_create_row_in_db.R
 cdr_delete_row_in_db.R
 cdr_deliver_admin_tbl.R
 cdr_deliver_chg_log_tbl.R
-cdr_impart_chg_log_tbl.R
+   #cdr_impart_chg_log_tbl.R
    #cdr_impart_primary_tbl.R
 cdr_join_tbls.R
 cdr_js_edit_ctrl.R
@@ -20,5 +20,5 @@ cdr_remove_tbl.R
 cdr_reset_db.R
    #cdr_row_editor_html.R
 cdr_update_db_deltas_tbl.R
-cdr_update_db_primary_tbl.R
+    cdr_update_db_primary_tbl.R
   #utils-pipe.R#

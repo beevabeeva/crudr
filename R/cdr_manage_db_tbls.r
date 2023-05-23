@@ -61,9 +61,9 @@ cdr_manage_db_tbls <- function(db_tbl_name, schema= "public",
     cat('\n  S1 - Create the UI above the primary table based on add row and delete row permissions\n')
     output$key_editor_ui <- shiny::renderUI({ crudr::cdr_row_editor_html('',db_tbl_name, schema, add_row_permission, del_row_permission) })
     cat('\n  S1 - Primary table: collect, sync, and present')
-    output$db_tbl <- cdr_impart_primary_tbl(conn_pool,db_tbl_name, key_col, cell_edit_permission, lock_fields)
+    output$db_tbl <- cdr_impart_primary_tbl(conn_pool,db_tbl_name, schema, key_col, cell_edit_permission, lock_fields)
     cat('\n  S1 - Deltas table: collect, sync, and present')
-    output$chg_log_tbl <- cdr_impart_chg_log_tbl(conn_pool, crudr::cdr_name_delta_tbl(db_tbl_name))
+    output$chg_log_tbl <- cdr_impart_chg_log_tbl(conn_pool, crudr::cdr_name_delta_tbl(db_tbl_name), schema)
 
 
 
@@ -333,8 +333,8 @@ cdr_manage_db_tbls <- function(db_tbl_name, schema= "public",
           dplyr::summarize(n()) %>% dplyr::collect() %>% as.integer()
         if( nrow(chg_log_tbl) != row_count_deltas_db ){
           cat('\n  S6 - Yep, there are new deltas. Someone else is inputting data. Updating your local tables.\n')
-          output$db_tbl <- cdr_impart_primary_tbl(conn_pool,db_tbl_name, key_col, cell_edit_permission, lock_fields)
-          output$chg_log_tbl <- cdr_impart_chg_log_tbl(conn_pool, crudr::cdr_name_delta_tbl(db_tbl_name))
+          output$db_tbl <- cdr_impart_primary_tbl(conn_pool,db_tbl_name, schema, key_col, cell_edit_permission, lock_fields)
+          output$chg_log_tbl <- cdr_impart_chg_log_tbl(conn_pool, crudr::cdr_name_delta_tbl(db_tbl_name), schema)
         } else {
           cat('\n  S6 - Nope. You are the only one making changes right now. Just you--by your lonesome.')
           cat('\n  S6 - Maybe they ought to pay you more.\n')
