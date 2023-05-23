@@ -7,23 +7,24 @@
 #'
 #' @param conn_pool pool object for the pool of connections to the specific db
 #' @param db_tbl_name char string describing the specific table the new line is located in
+#' @param schema string: name of schema containing the table
 #' @param key_col name of the unique ID column in the db table (table must have a unique ID column with unique IDs)
 #' @param input_uid char string: the new unique ID you'd like to use for the new observation you're creating
 #'
 #' @export
 #'
 
-cdr_create_row_in_db <- function(conn_pool, db_tbl_name, key_col, input_uid){
+cdr_create_row_in_db <- function(conn_pool, db_tbl_name, schema, key_col, input_uid){
 
   cat('\n--Running: crudr::cdr_create_row_in_db()\n')
-  cat(glue::glue("\nCreating new record {input_uid} in {key_col} for table '{db_tbl_name}':\n"))
+  cat(glue::glue("\nCreating new record {input_uid} in {key_col} for table '{schema}.{db_tbl_name}':\n"))
 
 
   sql_stmt <-
     pool::sqlInterpolate(
       conn = conn_pool,
       sql  = glue::glue('
-        INSERT INTO "{db_tbl_name}"
+        INSERT INTO "{schema}.{db_tbl_name}"
         ( "{key_col}" )
         VALUES ( ?input_uid )
                         '),

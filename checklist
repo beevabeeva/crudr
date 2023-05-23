@@ -2,7 +2,7 @@ cdr_adj_timezone.R
 cdr_admin_key_ui.R
 cdr_admin_tbl_ui.R
   #cdr_append_tbl.R#
-cdr_chk_uniq_id.R
+  --cdr_chk_uniq_id.R
 cdr_coerce_value.R
 cdr_create_row_in_db.R
 cdr_delete_row_in_db.R

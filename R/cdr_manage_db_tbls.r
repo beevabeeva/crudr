@@ -179,6 +179,7 @@ cdr_manage_db_tbls <- function(db_tbl_name, schema= "public",
         crudr::cdr_create_row_in_db(
           conn_pool  = conn_pool,
           db_tbl_name   = db_tbl_name,
+          schema        = schema,
           key_col       = key_col,
           input_uid     = input_uid
         )
@@ -202,6 +203,7 @@ cdr_manage_db_tbls <- function(db_tbl_name, schema= "public",
         crudr::cdr_update_db_deltas_tbl(
           conn_pool = conn_pool,
           db_tbl_name = crudr::cdr_name_delta_tbl(db_tbl_name),
+          schema = schema,
           to_deltas_tbl = to_deltas_tbl
         )
 
@@ -300,6 +302,7 @@ cdr_manage_db_tbls <- function(db_tbl_name, schema= "public",
                  .f = ~ crudr::cdr_update_db_deltas_tbl(
                    conn_pool  = conn_pool,
                    db_tbl_name   = crudr::cdr_name_delta_tbl(db_tbl_name),
+                   schema       = schema,
                    to_deltas_tbl = .x )
       )
 
@@ -307,6 +310,7 @@ cdr_manage_db_tbls <- function(db_tbl_name, schema= "public",
       crudr::cdr_delete_row_in_db(
         conn_pool = conn_pool,
         db_tbl_name  = db_tbl_name,
+        schema       = schema,
         value_rowuid = input_uid,
         key_column   = key_col
       )
