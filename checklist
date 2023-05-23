@@ -19,6 +19,6 @@ cdr_name_delta_tbl.R
 cdr_remove_tbl.R
 cdr_reset_db.R
    #cdr_row_editor_html.R
-cdr_update_db_deltas_tbl.R
+    #cdr_update_db_deltas_tbl.R
     #cdr_update_db_primary_tbl.R
   #utils-pipe.R#

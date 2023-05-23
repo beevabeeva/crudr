@@ -5,6 +5,7 @@
 #'
 #' @param conn_pool pool connection object: the pool of connections established by the session
 #' @param db_tbl_name string: name of the specific table the value to update is located in
+#' @param schema string: name of schema containing table
 #' @param to_deltas_tbl tibble of delta values to append
 #'
 #' @return an in-memory copy of the data just appended to the tracking table
@@ -13,6 +14,7 @@
 
 cdr_update_db_deltas_tbl <- function(conn_pool,
                                      db_tbl_name,
+                                     schema,
                                      to_deltas_tbl){
 
   cat('\n--Running: crudr::cdr_update_db_deltas_tbl()\n')
@@ -31,7 +33,7 @@ cdr_update_db_deltas_tbl <- function(conn_pool,
     pool::sqlInterpolate(
       conn = conn_pool,
       sql  = glue::glue('
-      INSERT INTO "{db_tbl_name}"
+      INSERT INTO "{schema}.{db_tbl_name}"
       ("OBS_ID","FIELD","CHG_FROM","CHG_TO","WHO_EDITED","WHEN_EDITED" )
       VALUES (
         ?uid,
