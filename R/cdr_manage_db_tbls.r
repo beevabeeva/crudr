@@ -112,8 +112,13 @@ cdr_manage_db_tbls <- function(db_tbl_name, schema= "public",
 
       output$key_editor_ui <- shiny::renderUI({ crudr::cdr_row_editor_html('... Updating Database ...',db_tbl_name, schema, add_row_permission, del_row_permission) })
 
-
       cat('\n  S2 - Creating tibble to append changes to Delta table\n')
+      cat('\n value_rowuid ',value_rowuid,'\n')
+      cat('\n value_colname',value_colname,'\n')
+      cat('\n old_mem_val',old_mem_val,'\n')
+      cat('\n update_value',update_value,'\n')
+      cat('\n lubridate::now(tzone = crudr::cdr_adj_timezone(conn_pool)',lubridate::now(tzone = crudr::cdr_adj_timezone(conn_pool)),'\n')
+
       to_deltas_tbl <- tibble::tibble(
         OBS_ID = value_rowuid,
         FIELD = value_colname,
@@ -133,6 +138,7 @@ cdr_manage_db_tbls <- function(db_tbl_name, schema= "public",
       crudr::cdr_update_db_primary_tbl(
         conn_pool     = conn_pool,
         db_tbl_name   = db_tbl_name,
+        schema        = schema,
         update_value  = update_value,
         value_colname = value_colname, # specific column name to insert value
         value_rowuid  = value_rowuid, # specific row UID to insert value
@@ -143,6 +149,7 @@ cdr_manage_db_tbls <- function(db_tbl_name, schema= "public",
       crudr::cdr_update_db_deltas_tbl(
         conn_pool     = conn_pool,
         db_tbl_name   = crudr::cdr_name_delta_tbl(db_tbl_name),
+        schema        = schema,
         to_deltas_tbl = to_deltas_tbl
       )
 

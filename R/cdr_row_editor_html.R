@@ -12,7 +12,7 @@
 #' @examples crudr::cdr_row_editor_html('hello', 'iris', 'public', TRUE, TRUE)
 cdr_row_editor_html <- function(notes_txt = '', id, schema="public", add_row_permission = F, del_row_permission = F){
 
-  cat('\n--Running: teper\n')
+  cat('\n--Running: crudr::cdr_row_editor_html()\n')
 
   ns <- shiny::NS(paste0(schema,".",id))
   html_style <- "display: inline-flex; align-items: center; font-size: 10px;"

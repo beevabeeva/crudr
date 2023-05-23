@@ -36,7 +36,7 @@ cdr_update_db_primary_tbl <- function(conn_pool  = conn_pool,
   sql_stmt <- pool::sqlInterpolate(
     conn = conn_pool,
     sql  = glue::glue('
-    UPDATE "{schema}.{db_tbl_name}"
+    UPDATE {schema}.{db_tbl_name}
     SET "{value_colname}" = ?update_value
     WHERE "{key_column}" = ?value_rowuid '
     ),
