@@ -9,7 +9,7 @@ cdr_delete_row_in_db.R
 cdr_deliver_admin_tbl.R
 cdr_deliver_chg_log_tbl.R
 cdr_impart_chg_log_tbl.R
-cdr_impart_primary_tbl.R
+   #cdr_impart_primary_tbl.R
 cdr_join_tbls.R
 cdr_js_edit_ctrl.R
   #cdr_make_db_tbls.R#

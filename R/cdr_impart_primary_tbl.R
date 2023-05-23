@@ -2,6 +2,7 @@
 #'
 #' @param conn_pool pool connection object from package 'pool'
 #' @param db_tbl_name string: name of the database table you're managing
+#' @param schema string: name of schema containing table
 #' @param key_col string: the field that contains your unique ID per row
 #' @param cell_edit_permission bool: do you want to allow the admin table cells to be edited
 #' @param lock_fields strings: column names you want to lock up e.g. c('Species','Petal.Width')
@@ -13,6 +14,7 @@
 cdr_impart_primary_tbl <- function(
     conn_pool,
     db_tbl_name,
+    schema,
     key_col,
     cell_edit_permission,
     lock_fields = c()
@@ -22,7 +24,7 @@ cdr_impart_primary_tbl <- function(
 
 
   cat('\n Downloading Primary table from the database and presenting it in the UI.\n')
-  db_tbl <<- dplyr::tbl(conn_pool,db_tbl_name) %>% dplyr::collect() %>%
+  db_tbl <<- dplyr::tbl(conn_pool, dbplyr::in_schema(schema, db_tbl_name)) %>% dplyr::collect() %>%
     dplyr::relocate(dplyr::all_of(key_col))
   print(utils::head(db_tbl))
 

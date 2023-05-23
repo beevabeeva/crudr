@@ -110,7 +110,7 @@ cdr_manage_db_tbls <- function(db_tbl_name, schema= "public",
       DT::replaceData(proxy_db_tbl, db_tbl)
 
 
-      output$key_editor_ui <- shiny::renderUI({ crudr::cdr_row_editor_html('... Updating Database ...',db_tbl_name, add_row_permission, del_row_permission) })
+      output$key_editor_ui <- shiny::renderUI({ crudr::cdr_row_editor_html('... Updating Database ...',db_tbl_name, schema, add_row_permission, del_row_permission) })
 
 
       cat('\n  S2 - Creating tibble to append changes to Delta table\n')
@@ -146,7 +146,7 @@ cdr_manage_db_tbls <- function(db_tbl_name, schema= "public",
         to_deltas_tbl = to_deltas_tbl
       )
 
-      output$key_editor_ui <- shiny::renderUI({ crudr::cdr_row_editor_html('',db_tbl_name, add_row_permission, del_row_permission) })
+      output$key_editor_ui <- shiny::renderUI({ crudr::cdr_row_editor_html('',db_tbl_name, schema, add_row_permission, del_row_permission) })
 
 
 
@@ -170,7 +170,7 @@ cdr_manage_db_tbls <- function(db_tbl_name, schema= "public",
 
       if(is.null(out_text)){
 
-        output$key_editor_ui <- shiny::renderUI({ crudr::cdr_row_editor_html('... Updating Database ...',db_tbl_name, add_row_permission, del_row_permission) })
+        output$key_editor_ui <- shiny::renderUI({ crudr::cdr_row_editor_html('... Updating Database ...',db_tbl_name, schema, add_row_permission, del_row_permission) })
 
         db_tbl <<- dplyr::bind_rows(tibble::tibble("{key_col}" := input_uid), db_tbl)
         DT::replaceData(proxy_db_tbl, db_tbl)
@@ -207,7 +207,7 @@ cdr_manage_db_tbls <- function(db_tbl_name, schema= "public",
 
       }
 
-      output$key_editor_ui <- shiny::renderUI({ crudr::cdr_row_editor_html(out_text,db_tbl_name, add_row_permission, del_row_permission) })
+      output$key_editor_ui <- shiny::renderUI({ crudr::cdr_row_editor_html(out_text,db_tbl_name, schema, add_row_permission, del_row_permission) })
 
 
     })
@@ -240,7 +240,7 @@ cdr_manage_db_tbls <- function(db_tbl_name, schema= "public",
 
       } else {
 
-        output$key_editor_ui <- shiny::renderUI({ crudr::cdr_row_editor_html(out_text,db_tbl_name, add_row_permission, del_row_permission) })
+        output$key_editor_ui <- shiny::renderUI({ crudr::cdr_row_editor_html(out_text,db_tbl_name, schema, add_row_permission, del_row_permission) })
 
       }
 
@@ -260,7 +260,7 @@ cdr_manage_db_tbls <- function(db_tbl_name, schema= "public",
       input_uid <- stringr::str_trim(input$uid)
       shiny::removeModal()
 
-      output$key_editor_ui <- shiny::renderUI({ crudr::cdr_row_editor_html('... Updating Database ...',db_tbl_name, add_row_permission, del_row_permission) })
+      output$key_editor_ui <- shiny::renderUI({ crudr::cdr_row_editor_html('... Updating Database ...',db_tbl_name, schema, add_row_permission, del_row_permission) })
 
 
       cat('\n  S5 - These values are being deleted:\n')
@@ -311,7 +311,7 @@ cdr_manage_db_tbls <- function(db_tbl_name, schema= "public",
         key_column   = key_col
       )
 
-      output$key_editor_ui <- shiny::renderUI({ crudr::cdr_row_editor_html(out_text,db_tbl_name, add_row_permission, del_row_permission) })
+      output$key_editor_ui <- shiny::renderUI({ crudr::cdr_row_editor_html(out_text,db_tbl_name, schema, add_row_permission, del_row_permission) })
 
     })
 
