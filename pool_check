@@ -1,11 +1,11 @@
 R/cdr_reset_db.R
 R/cdr_remove_tbl.R
   #R/cdr_make_db_tbls.R#
-R/cdr_create_row_in_db.R
+  #R/cdr_create_row_in_db.R
   #R/cdr_append_tbl.R#
-  R/cdr_manage_db_tbls.r
+  #R/cdr_manage_db_tbls.r
   #R/cdr_update_db_deltas_tbl.R
   #R/cdr_update_db_primary_tbl.R
-R/cdr_delete_row_in_db.R
-R/cdr_adj_timezone.R
+  #R/cdr_delete_row_in_db.R
+  --R/cdr_adj_timezone.R
   #R/cdr_row_editor_html

@@ -4,8 +4,8 @@ cdr_admin_tbl_ui.R
   #cdr_append_tbl.R#
   --cdr_chk_uniq_id.R
 cdr_coerce_value.R
-cdr_create_row_in_db.R
-cdr_delete_row_in_db.R
+  #cdr_create_row_in_db.R
+  #cdr_delete_row_in_db.R
 cdr_deliver_admin_tbl.R
 cdr_deliver_chg_log_tbl.R
    #cdr_impart_chg_log_tbl.R
@@ -14,11 +14,11 @@ cdr_join_tbls.R
 cdr_js_edit_ctrl.R
   #cdr_make_db_tbls.R#
 cdr_make_unique_ids.R
-cdr_manage_db_tbls.r
+  #cdr_manage_db_tbls.r
 cdr_name_delta_tbl.R
 cdr_remove_tbl.R
 cdr_reset_db.R
-   #cdr_row_editor_html.R
-    #cdr_update_db_deltas_tbl.R
-    #cdr_update_db_primary_tbl.R
+  #cdr_row_editor_html.R
+  #cdr_update_db_deltas_tbl.R
+  #cdr_update_db_primary_tbl.R
   #utils-pipe.R#
