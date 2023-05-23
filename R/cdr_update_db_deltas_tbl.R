@@ -19,13 +19,18 @@ cdr_update_db_deltas_tbl <- function(conn_pool,
 
   cat('\n--Running: crudr::cdr_update_db_deltas_tbl()\n')
 
+#Hack for now for S4 con object:
+  if (isS4(conn_pool)) {
+    datetime_type <- glue::glue("TIMESTAMP ?when AT TIME ZONE '{cdr_adj_timezone(conn_pool)}'")
 
-  datetime_type <- dplyr::case_when(
-    stringr::str_detect(conn_pool$objClass[[1]],"(?i)SQLite") ~ "DATETIME(?when)",
-    stringr::str_detect(conn_pool$objClass[[1]],"(?i)postgres") ~ glue::glue("TIMESTAMP ?when AT TIME ZONE '{cdr_adj_timezone(conn_pool)}'"),
-    stringr::str_detect(conn_pool$objClass[[1]],"(?i)Snowflake") ~ "TO_TIMESTAMP(?when)",
-    TRUE ~ "TIMESTAMP ?when "
-    )
+  }else{
+      datetime_type <- dplyr::case_when(
+      stringr::str_detect(conn_pool$objClass[[1]],"(?i)SQLite") ~ "DATETIME(?when)",
+      stringr::str_detect(conn_pool$objClass[[1]],"(?i)postgres") ~ glue::glue("TIMESTAMP ?when AT TIME ZONE '{cdr_adj_timezone(conn_pool)}'"),
+      stringr::str_detect(conn_pool$objClass[[1]],"(?i)Snowflake") ~ "TO_TIMESTAMP(?when)",
+      TRUE ~ "TIMESTAMP ?when "
+      )
+  }
 
 
   cat('\nUsing this SQL statement to append fields to the DB deltas table:\n')
@@ -33,7 +38,7 @@ cdr_update_db_deltas_tbl <- function(conn_pool,
     pool::sqlInterpolate(
       conn = conn_pool,
       sql  = glue::glue('
-      INSERT INTO "{schema}.{db_tbl_name}"
+      INSERT INTO {schema}.{db_tbl_name}
       ("OBS_ID","FIELD","CHG_FROM","CHG_TO","WHO_EDITED","WHEN_EDITED" )
       VALUES (
         ?uid,
