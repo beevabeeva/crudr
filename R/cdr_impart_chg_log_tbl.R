@@ -11,7 +11,7 @@
 cdr_impart_chg_log_tbl <-function(
     conn_pool,
     chg_log_tbl_name = crudr::cdr_name_delta_tbl(db_tbl_name),
-    schema
+    schema = "public"
 ) {
   cat('\n--Running: crudr::cdr_impart_chg_log_tbl()')
 

@@ -14,7 +14,7 @@
 cdr_impart_primary_tbl <- function(
     conn_pool,
     db_tbl_name,
-    schema,
+    schema = "public",
     key_col,
     cell_edit_permission,
     lock_fields = c()

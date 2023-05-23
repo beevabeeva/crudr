@@ -14,7 +14,7 @@
 
 cdr_update_db_deltas_tbl <- function(conn_pool,
                                      db_tbl_name,
-                                     schema,
+                                     schema = "public",
                                      to_deltas_tbl){
 
   cat('\n--Running: crudr::cdr_update_db_deltas_tbl()\n')

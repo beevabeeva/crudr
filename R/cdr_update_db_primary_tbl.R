@@ -52,7 +52,7 @@ cdr_update_db_primary_tbl <- function(conn_pool  = conn_pool,
   if(success){
     cat(
       paste0("\nOverwrote row '",value_rowuid,"' field '",value_colname,"' with '",
-             update_value,"' in '",schema"."db_tbl_name,"' database\n")
+             update_value,"' in '",schema,".",db_tbl_name,"' database\n")
     )
   } else {
     message(glue::glue("Unable to overwrite values in the DB primary table. "))
