@@ -12,7 +12,7 @@
 #' @examples crudr::cdr_row_editor_html('hello', 'iris', 'public', TRUE, TRUE)
 cdr_row_editor_html <- function(notes_txt = '', id, schema="public", add_row_permission = F, del_row_permission = F){
 
-  cat('\n--Running: crudr::cdr_row_editor_html()\n')
+  cat('\n--Running: teper\n')
 
   ns <- shiny::NS(paste0(schema,".",id))
   html_style <- "display: inline-flex; align-items: center; font-size: 10px;"
@@ -23,6 +23,7 @@ cdr_row_editor_html <- function(notes_txt = '', id, schema="public", add_row_per
 
 
   if (add_row_permission & del_row_permission) {
+      cat('\n--Running: teper1\n')
 
       shiny::tags$span(style=html_style,
                        html_for_uid_box,
@@ -32,7 +33,7 @@ cdr_row_editor_html <- function(notes_txt = '', id, schema="public", add_row_per
                        )
 
   } else if (add_row_permission) {
-
+      cat('\n--Running: teper2\n')
       shiny::tags$span(style=html_style,
                        html_for_uid_box,
                        html_btn_to_create_row,
@@ -40,7 +41,7 @@ cdr_row_editor_html <- function(notes_txt = '', id, schema="public", add_row_per
       )
 
   } else if (del_row_permission){
-
+    cat('\n--Running: teper3\n')
     shiny::tags$span(style=html_style,
                      html_for_uid_box,
                      html_btn_to_delete_row,
@@ -48,7 +49,7 @@ cdr_row_editor_html <- function(notes_txt = '', id, schema="public", add_row_per
     )
 
   } else {
-
+    cat('\n--Running: teper4\n')
     ' '
 
   }
