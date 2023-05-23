@@ -4,12 +4,14 @@
 \alias{cdr_create_row_in_db}
 \title{Appends new row to primary table}
 \usage{
-cdr_create_row_in_db(conn_pool, db_tbl_name, key_col, input_uid)
+cdr_create_row_in_db(conn_pool, db_tbl_name, schema, key_col, input_uid)
 }
 \arguments{
 \item{conn_pool}{pool object for the pool of connections to the specific db}
 
 \item{db_tbl_name}{char string describing the specific table the new line is located in}
+
+\item{schema}{string: name of schema containing the table}
 
 \item{key_col}{name of the unique ID column in the db table (table must have a unique ID column with unique IDs)}
 

@@ -7,6 +7,7 @@
 cdr_row_editor_html(
   notes_txt = "",
   id,
+  schema = "public",
   add_row_permission = F,
   del_row_permission = F
 )
@@ -14,7 +15,9 @@ cdr_row_editor_html(
 \arguments{
 \item{notes_txt}{message to send to the UI edit page}
 
-\item{id}{namespace id (corresponds to DB name)}
+\item{id}{namespace id (corresponds to DB name)# update: not anymore - corresponds to table name}
+
+\item{schema}{schema containing table (id)}
 
 \item{add_row_permission}{T or F: whether user has permission to add a new observation, i.e. the Unique ID for a row}
 
@@ -27,5 +30,5 @@ ui output component
 creates the html for the UI to add and delete new rows given the permissions to do so
 }
 \examples{
-crudr::cdr_row_editor_html('hello', 'iris', TRUE, TRUE)
+crudr::cdr_row_editor_html('hello', 'iris', 'public', TRUE, TRUE)
 }

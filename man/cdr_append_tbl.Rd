@@ -4,7 +4,13 @@
 \alias{cdr_append_tbl}
 \title{Appends data from a dataframe into an existing database table with the same structure}
 \usage{
-cdr_append_tbl(conn_pool, db_tbl, db_tbl_name = NULL, chunk_size = 10000)
+cdr_append_tbl(
+  conn_pool,
+  db_tbl,
+  db_tbl_name = NULL,
+  chunk_size = 10000,
+  schema = "public"
+)
 }
 \arguments{
 \item{conn_pool}{a database connection of class 'pool'}
@@ -17,6 +23,8 @@ cdr_append_tbl(conn_pool, db_tbl, db_tbl_name = NULL, chunk_size = 10000)
 (i.e. if you have a huge dataframe with 100 columns and 100,000 rows, a
 chunk_size of 10,000 elements would split the dataframe into 1000 groups and
 appends each successively.)}
+
+\item{schema}{the name of the schema that contains the table to which the data is to be appended}
 }
 \description{
 Appends data from a dataframe into an existing database table with the same structure

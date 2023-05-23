@@ -4,12 +4,19 @@
 \alias{cdr_update_db_deltas_tbl}
 \title{Populates deltas table when user updates primary table}
 \usage{
-cdr_update_db_deltas_tbl(conn_pool, db_tbl_name, to_deltas_tbl)
+cdr_update_db_deltas_tbl(
+  conn_pool,
+  db_tbl_name,
+  schema = "public",
+  to_deltas_tbl
+)
 }
 \arguments{
 \item{conn_pool}{pool connection object: the pool of connections established by the session}
 
 \item{db_tbl_name}{string: name of the specific table the value to update is located in}
+
+\item{schema}{string: name of schema containing table}
 
 \item{to_deltas_tbl}{tibble of delta values to append}
 }

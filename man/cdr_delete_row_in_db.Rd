@@ -7,6 +7,7 @@
 cdr_delete_row_in_db(
   conn_pool = conn_pool,
   db_tbl_name = NULL,
+  schema = "public",
   value_rowuid = NULL,
   key_column = NULL
 )
@@ -15,6 +16,8 @@ cdr_delete_row_in_db(
 \item{conn_pool}{pool connection object: the pool of connections established by the session}
 
 \item{db_tbl_name}{string: name of the specific table the value to update is located in}
+
+\item{schema}{string: name of the schema containing the table}
 
 \item{value_rowuid}{number or string: the specific the unique ID that corresponds to the row to delete}
 

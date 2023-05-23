@@ -8,6 +8,7 @@ corresponding db table, unique row ID, and column}
 cdr_update_db_primary_tbl(
   conn_pool = conn_pool,
   db_tbl_name = NULL,
+  schema = NULL,
   update_value = NULL,
   value_colname = NULL,
   value_rowuid = NULL,
@@ -18,6 +19,8 @@ cdr_update_db_primary_tbl(
 \item{conn_pool}{pool connection object: the pool of connections established by the session}
 
 \item{db_tbl_name}{string: name of the specific table the value to update is located in}
+
+\item{schema}{string: name of schema containing db_tbl_name}
 
 \item{update_value}{number or string: the value to update already in the correct data type}
 

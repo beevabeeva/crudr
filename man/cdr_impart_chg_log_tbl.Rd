@@ -6,13 +6,16 @@
 \usage{
 cdr_impart_chg_log_tbl(
   conn_pool,
-  chg_log_tbl_name = crudr::cdr_name_delta_tbl(db_tbl_name)
+  chg_log_tbl_name = crudr::cdr_name_delta_tbl(db_tbl_name),
+  schema = "public"
 )
 }
 \arguments{
 \item{conn_pool}{pool connection object from package 'pool'}
 
 \item{chg_log_tbl_name}{string: name of the database table you're managing with suffix "_DELTAS"}
+
+\item{schemas}{string: name of schema containing the _DELTAS table above.}
 }
 \value{
 a DT object to present the change log table

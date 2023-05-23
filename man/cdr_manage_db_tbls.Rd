@@ -6,6 +6,7 @@
 \usage{
 cdr_manage_db_tbls(
   db_tbl_name,
+  schema = "public",
   key_col,
   conn_pool,
   session,
@@ -17,8 +18,9 @@ cdr_manage_db_tbls(
 )
 }
 \arguments{
-\item{db_tbl_name}{primary table name - namespace ID corresponding to the
-'primary_tbl_name' in the database}
+\item{db_tbl_name}{primary table name - namespace ID corresponding to the}
+
+\item{schema}{schema containing primary table}
 
 \item{key_col}{name of the unique ID column in the db table (table must have
 a unique ID column with unique IDs)}

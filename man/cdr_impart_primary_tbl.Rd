@@ -7,6 +7,7 @@
 cdr_impart_primary_tbl(
   conn_pool,
   db_tbl_name,
+  schema = "public",
   key_col,
   cell_edit_permission,
   lock_fields = c()
@@ -16,6 +17,8 @@ cdr_impart_primary_tbl(
 \item{conn_pool}{pool connection object from package 'pool'}
 
 \item{db_tbl_name}{string: name of the database table you're managing}
+
+\item{schema}{string: name of schema containing table}
 
 \item{key_col}{string: the field that contains your unique ID per row}
 
