@@ -333,7 +333,7 @@ cdr_manage_db_tbls <- function(db_tbl_name, schema= "public",
         last_multiuser_timechk <- Sys.time() # reset
 
         cat('\n  S6 - Checking if someone else made updates to the tables ... ')
-        row_count_deltas_db <- dplyr::tbl(conn_pool, crudr::cdr_name_delta_tbl(db_tbl_name)) %>%
+        row_count_deltas_db <- dplyr::tbl(conn_pool, dbplyr::in_schema(schema, crudr::cdr_name_delta_tbl(db_tbl_name))) %>%
           dplyr::summarize(n()) %>% dplyr::collect() %>% as.integer()
         if( nrow(chg_log_tbl) != row_count_deltas_db ){
           cat('\n  S6 - Yep, there are new deltas. Someone else is inputting data. Updating your local tables.\n')
