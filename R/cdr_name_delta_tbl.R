@@ -10,5 +10,5 @@
 #' }
 
 cdr_name_delta_tbl <- function(db_tbl_name){
-  glue::glue("{db_tbl_name}_DELTAS")
+  glue::glue("{db_tbl_name}_deltas")
 }
